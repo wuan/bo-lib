@@ -25,6 +25,8 @@ namespace blitzortung {
 
 	//! returns the acquisition status of the gps module
 	virtual char getStatus() const = 0;
+
+        virtual ~Gps() {};
     };
 
   }

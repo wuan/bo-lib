@@ -11,7 +11,6 @@ namespace blitzortung {
     class ArrayOf : public virtual Array {
 
       public:
-
 	typedef std::unique_ptr<ArrayOf> AP;
 
       private:

@@ -108,24 +108,24 @@ namespace blitzortung {
 		case 1:
 		  return Waveform::AP(new WaveformOf<signed char, 1, 1>(t0, dt));
 		case 64:
-		  return Waveform::AP(new WaveformOf<signed char, 1, 64>(t0, dt));
+		  return Waveform::AP(new WaveformOf<signed char, 64, 1>(t0, dt));
 		case 128:
-		  return Waveform::AP(new WaveformOf<signed char, 1, 128>(t0, dt));
+		  return Waveform::AP(new WaveformOf<signed char, 128, 1>(t0, dt));
 		case 256:
-		  return Waveform::AP(new WaveformOf<signed char, 1, 256>(t0, dt));
+		  return Waveform::AP(new WaveformOf<signed char, 256, 1>(t0, dt));
 		default:
 	          throw new exception::Base("unhandled number of samples");
 	      }
 	    case 2:
 	      switch (numberOfSamples_) {
 		case 1:
-		  return Waveform::AP(new WaveformOf<signed char, 2, 1>(t0, dt));
+		  return Waveform::AP(new WaveformOf<signed char, 1, 2>(t0, dt));
 		case 64:
-		  return Waveform::AP(new WaveformOf<signed char, 2, 64>(t0, dt));
+		  return Waveform::AP(new WaveformOf<signed char, 64, 2>(t0, dt));
 		case 128:
-		  return Waveform::AP(new WaveformOf<signed char, 2, 128>(t0, dt));
+		  return Waveform::AP(new WaveformOf<signed char, 128, 2>(t0, dt));
 		case 256:
-		  return Waveform::AP(new WaveformOf<signed char, 2, 256>(t0, dt));
+		  return Waveform::AP(new WaveformOf<signed char, 256, 2>(t0, dt));
 		default:
 	          throw new exception::Base("unhandled number of samples");
 	      }
@@ -135,17 +135,10 @@ namespace blitzortung {
 
 	case Type::SHORT:
 	  switch (numberOfChannels_) {
-	    case 1:
-	      switch (numberOfSamples_) {
-		case 1:
-		  return Waveform::AP(new WaveformOf<signed short, 1, 1>(t0, dt));
-		default:
-	          throw new exception::Base("unhandled number of samples");
-	      }
 	    case 2:
 	      switch (numberOfSamples_) {
 		case 1:
-		  return Waveform::AP(new WaveformOf<signed short, 2, 1>(t0, dt));
+		  return Waveform::AP(new WaveformOf<signed short, 1, 2>(t0, dt));
 		default:
 	          throw new exception::Base("unhandled number of samples");
 	      }
@@ -168,24 +161,24 @@ namespace blitzortung {
 		case 1:
 		  return Waveform::AP(new WaveformOf<signed char, 1, 1>(date, stream));
 		case 64:
-		  return Waveform::AP(new WaveformOf<signed char, 1, 64>(date, stream));
+		  return Waveform::AP(new WaveformOf<signed char, 64, 1>(date, stream));
 		case 128:
-		  return Waveform::AP(new WaveformOf<signed char, 1, 128>(date, stream));
+		  return Waveform::AP(new WaveformOf<signed char, 128, 1>(date, stream));
 		case 256:
-		  return Waveform::AP(new WaveformOf<signed char, 1, 256>(date, stream));
+		  return Waveform::AP(new WaveformOf<signed char, 256, 1>(date, stream));
 		default:
 	          throw new exception::Base("unhandled number of samples");
 	      }
 	    case 2:
 	      switch (numberOfSamples_) {
 		case 1:
-		  return Waveform::AP(new WaveformOf<signed char, 2, 1>(date, stream));
+		  return Waveform::AP(new WaveformOf<signed char, 1, 2>(date, stream));
 		case 64:
-		  return Waveform::AP(new WaveformOf<signed char, 2, 64>(date, stream));
+		  return Waveform::AP(new WaveformOf<signed char, 64, 2>(date, stream));
 		case 128:
-		  return Waveform::AP(new WaveformOf<signed char, 2, 128>(date, stream));
+		  return Waveform::AP(new WaveformOf<signed char, 128, 2>(date, stream));
 		case 256:
-		  return Waveform::AP(new WaveformOf<signed char, 2, 256>(date, stream));
+		  return Waveform::AP(new WaveformOf<signed char, 256, 2>(date, stream));
 		default:
 	          throw new exception::Base("unhandled number of samples");
 	      }
@@ -195,17 +188,10 @@ namespace blitzortung {
 
 	case Type::SHORT:
 	  switch (numberOfChannels_) {
-	    case 1:
-	      switch (numberOfSamples_) {
-		case 1:
-		  return Waveform::AP(new WaveformOf<signed short, 1, 1>(date, stream));
-		default:
-	          throw new exception::Base("unhandled number of samples");
-	      }
 	    case 2:
 	      switch (numberOfSamples_) {
 		case 1:
-		  return Waveform::AP(new WaveformOf<signed short, 2, 1>(date, stream));
+		  return Waveform::AP(new WaveformOf<signed short, 1, 2>(date, stream));
 		default:
 	          throw new exception::Base("unhandled number of samples");
 	      }
