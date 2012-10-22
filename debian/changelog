@@ -1,0 +1,139 @@
+blitzortung-tracker (1.1) unstable; urgency=low
+
+  * forked from blitzortung-tracker 1.0.6
+  * use more efficient templates
+
+ -- Andreas Wuerl <blitzortung@tryb.de>  Sun, 04 Nov 2012 22:38:16 +0100
+
+blitzortung-tracker (1.0.6) unstable; urgency=low
+
+  * added txt to data file operation to bo-data
+  * added data file cleanup operation to bo-data
+  * code style/syntax improvements
+  * only count transmitted events for data rate limit
+  * removed debug output
+
+ -- Andreas Wuerl <blitzortung@tryb.de>  Fri, 28 Sep 2012 00:11:25 +0200
+
+blitzortung-tracker (1.0.5) unstable; urgency=low
+
+  * fixed creation of data files with more than 65535 entries
+  * improved phase value output in bo-data when channels are saturated
+
+ -- Andreas Wuerl <blitzortung@tryb.de>  Fri, 22 Jun 2012 07:12:31 +0200
+
+blitzortung-tracker (1.0.4) unstable; urgency=low
+
+  * added normalizing to 1 channel for bo-data waveform output
+  * improved command line option handling / help
+
+ -- Andreas Wuerl <blitzortung@tryb.de>  Mon, 11 Jun 2012 13:34:00 +0200
+
+blitzortung-tracker (1.0.3) unstable; urgency=low
+
+  * refactored Array to prepare signal analysis
+  * fixed compilation on amd64 systems
+
+ -- Andreas Wuerl <blitzortung@tryb.de>  Wed, 23 May 2012 18:35:00 +0200
+
+blitzortung-tracker (1.0.2) unstable; urgency=low
+
+  * refactored data container to use templates and new class structure
+  * cleanup of configuration files
+  * use debhelper instead of cdbs for package building
+  * added some tests
+  * renamed binaries/scripts from blitzortung-* to bo-*
+  * added JSON output mode to bo-data (data::Event and data::WaveformOf now have a toJson() method)
+  * normalized amplitude output, added phase at maximum to event output
+
+ -- Andreas Wuerl <blitzortung@tryb.de>  Mon, 30 Apr 2012 21:55:00 +0200
+
+blitzortung-tracker (1.0.1) unstable; urgency=low
+
+  * added separate gps baud rate setting
+  * improved support for PCB6.8
+
+ -- Andreas Wuerl <blitzortung@tryb.de>  Sun, 19 Feb 2012 09:16:00 +0100
+
+blitzortung-tracker (1.0.0) unstable; urgency=low
+
+  * added raw file version number to header (makes reading/writing incompatible from older versions)
+  * performance: use data format reference instead of shared_ptr
+  * code migration to subset of C++11 features (gcc >= 4.4 required)
+    * rvalue refereces
+    * default methods
+    * strongly typed enums
+    * threads, mutex, etc.
+    * make class objects non-copyable
+  * serial communication error handling
+  * configuration of amplitude limit through configuration file
+  * fixed sample handling and sample rate limiter
+  * added support for firmware version 30 and newer
+
+ -- Andreas Wuerl <blitzortung@tryb.de>  Sun, 19 Feb 2012 09:16:00 +0100
+
+blitzortung-tracker (0.9.5) unstable; urgency=low
+
+  * made ipc interface more robust during startup
+  * added filter for signals with amplitude below trigger level
+  * added simple statistics to blitzortung-data (only with boost > 
+  * separated python code into blitzortung-tracker-tools package (available with libboost >= 1.37)
+  * іmproved socket information for current activity
+  * made package compatibile with Debian 5
+
+ -- Andreas Wuerl <blitzortung@tryb.de>  Sun, 3 Jul 2011 22:38:00 +0200
+
+blitzortung-tracker (0.9.4) unstable; urgency=low
+
+  * improved socket server functionality
+  * fix problems with parsing of sample data
+  * improved configuration of serial port
+  * added analysis cronjob
+  * better documentation / support for non Debian/Ubuntu systems
+
+ -- Andreas Wuerl <blitzortung@tryb.de>  Thu, 20 May 2011 07:25:00 +0200
+
+blitzortung-tracker (0.9.3) unstable; urgency=low
+
+  * added unix domain socket server with multithreaded listeners
+  * added server module to serve tracker information via JSON strings
+  * added dummy communication to run tracker without measurement hardware for tests
+  * fixed sample rate for older firmware versions (< 27)
+  * fixed tick parsing for recent firmware version
+  * changing firmware version storage from integer to string
+  * minor fixeѕ
+
+ -- Andreas Wuerl <blitzortung@tryb.de>  Thu, 31 Mar 2011 19:15:00 +0200
+
+blitzortung-tracker (0.9.2) unstable; urgency=low
+
+  * rework of status graphs
+  * sending empty data when no samples were measured for a certain time
+  * improved data rate limit algorithm
+  * optional logging to file
+  * rewrote incoming data parsing to avoid dependency from pcb/firmware version
+  * transmission of data via UDP instead of TCP
+  * complete rework of internal sample processing using a flexible internal sample format
+
+ -- Andreas Wuerl <blitzortung@tryb.de>  Wed, 2 Mar 2011 19:41:45 +0100
+
+blitzortung-tracker (0.9.1) unstable; urgency=low
+
+  * adapted baudrate setting for new pcb versions
+  * rework of data output
+    * network and local targets can be arbitrarily chosen
+  * rework of sample to use waveform and gpsInfo substructures
+  * rework of creation of samples. now using factory objects
+
+ -- Andreas Wuerl <blitzortung@tryb.de>  Wed, 14 Nov 2010 21:14:45 +0100
+
+blitzortung-tracker (0.9) unstable; urgency=low
+
+  * Initial Release.
+    * use of autoconf/automake for easy build process
+    * use of boost date-time / program_options / vector_ptr / thread and thread communication
+    * first version of event rate limiting mechanism
+    * first version of binary data export
+    * includes additional software to generate raw data statistics
+
+ -- Andreas Wuerl <blitzortung@tryb.de>  Wed, 25 Aug 2010 18:45:10 +0200
