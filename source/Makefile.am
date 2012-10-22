@@ -37,8 +37,6 @@ libblitzortung_la_SOURCES = \
 	ipc/Queue.h ipc/Queue.cc \
 	ipc/server/Base.h ipc/server/Base.cc \
 	ipc/server/factory/Base.h ipc/server/factory/Base.cc \
-	ipc/server/Json.h ipc/server/Json.cc \
-	ipc/server/factory/Json.h ipc/server/factory/Json.cc \
 	\
 	util/RingBuffer.h util/RingBuffer.cc \
 	util/Size.h \

@@ -1,17 +1,16 @@
 #include "data/GpsInfo.h"
-#include "hardware/gps/Base.h"
-#include "hardware/gps/data/Location.h"
+#include "data/Gps.h"
 #include "util/Stream.h"
 #include "util/Size.h"
 
 namespace blitzortung {
   namespace data {
 
-    GpsInfo::GpsInfo(const hardware::gps::Base& gps) :
-      longitude_(gps.getLocation().getLongitude()),
-      latitude_(gps.getLocation().getLatitude()),
-      altitude_(gps.getLocation().getAltitude()),
-      numberOfSatellites_(gps.getSatelliteCount()),
+    GpsInfo::GpsInfo(const data::Gps& gps) :
+      longitude_(gps.getLongitude()),
+      latitude_(gps.getLatitude()),
+      altitude_(gps.getAltitude()),
+      numberOfSatellites_(gps.getNumberOfSatellites()),
       status_(gps.getStatus())
     {
     }

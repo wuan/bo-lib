@@ -55,10 +55,7 @@ noinst_PROGRAMS = test-lib$(EXEEXT)
 subdir = tests
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
-	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
-	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/configure.in
+am__aclocal_m4_deps = $(top_srcdir)/configure.in
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
@@ -75,9 +72,7 @@ am_test_lib_OBJECTS = test-lib.$(OBJEXT) \
 	test-lib-data-events-1_128_8.$(OBJEXT) \
 	test-lib-data-format.$(OBJEXT) \
 	test-lib-data-waveform.$(OBJEXT) \
-	test-lib-data-arrayof.$(OBJEXT) \
-	test-lib-hardware-parsing.$(OBJEXT) \
-	test-lib-hardware-pcb.$(OBJEXT) test-lib-process.$(OBJEXT)
+	test-lib-data-arrayof.$(OBJEXT)
 test_lib_OBJECTS = $(am_test_lib_OBJECTS)
 test_lib_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -252,9 +247,6 @@ test_lib_SOURCES = \
 	test-lib-data-format.cc test-lib-data-format.h \
 	test-lib-data-waveform.cc test-lib-data-waveform.h \
 	test-lib-data-arrayof.cc test-lib-data-arrayof.h \
-	test-lib-hardware-parsing.cc test-lib-hardware-parsing.h \
-	test-lib-hardware-pcb.cc test-lib-hardware-pcb.h \
-	test-lib-process.cc test-lib-process.h \
 	$(NULL)
 
 all: all-am
@@ -319,9 +311,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-lib-data-events.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-lib-data-format.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-lib-data-waveform.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-lib-hardware-parsing.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-lib-hardware-pcb.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-lib-process.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-lib.Po@am__quote@
 
 .cc.o:

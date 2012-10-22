@@ -3,14 +3,9 @@
 
 #include "namespaces.h"
 #include "exception/Base.h"
+#include "data/Gps.h"
 
 namespace blitzortung {
-  namespace hardware {
-    namespace gps {
-      class Base;
-    }
-  }
-
   namespace data {
 
     //! class for gps information
@@ -43,7 +38,7 @@ namespace blitzortung {
 	/*!
 	\param gps const reference to gps hardware
 	*/
-	GpsInfo(const hardware::gps::Base& gps);
+	GpsInfo(const data::Gps& gps);
 
         //! create a gpsinfo object from a stream
 	/*!
