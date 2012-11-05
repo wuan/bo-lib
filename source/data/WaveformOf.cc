@@ -6,15 +6,15 @@
 namespace blitzortung {
   namespace data {
 
-    template<typename T, int numberOfChannels, int numberOfSamples>
-    WaveformOf<T, numberOfChannels, numberOfSamples>::WaveformOf(pt::ptime const& t0, pt::time_duration const& dt) :
+    template<typename T, int numberOfSamples, int numberOfChannels>
+    WaveformOf<T, numberOfSamples, numberOfChannels>::WaveformOf(pt::ptime const& t0, pt::time_duration const& dt) :
       t0_(t0),
       dt_(dt)
     {
     }
 
-    template<typename T, int numberOfChannels, int numberOfSamples>
-    WaveformOf<T, numberOfChannels, numberOfSamples>::WaveformOf(const gr::date& date, std::iostream& stream) :
+    template<typename T, int numberOfSamples, int numberOfChannels>
+    WaveformOf<T, numberOfSamples, numberOfChannels>::WaveformOf(const gr::date& date, std::iostream& stream) :
       t0_(),
       dt_()
     {
@@ -35,31 +35,31 @@ namespace blitzortung {
       }
       dt_ = pt::nanoseconds(deltaNanoseconds);
 
-      ArrayOf<T, numberOfChannels, numberOfSamples>::fromStream(stream);
+      ArrayOf<T, numberOfSamples, numberOfChannels>::fromStream(stream);
     }
 
-    template<typename T, int numberOfChannels, int numberOfSamples>
-    WaveformOf<T, numberOfChannels, numberOfSamples>::~WaveformOf()
+    template<typename T, int numberOfSamples, int numberOfChannels>
+    WaveformOf<T, numberOfSamples, numberOfChannels>::~WaveformOf()
     {
     }
 
-    template<typename T, int numberOfChannels, int numberOfSamples>
-    const pt::ptime& WaveformOf<T, numberOfChannels, numberOfSamples>::getTimestamp() const {
+    template<typename T, int numberOfSamples, int numberOfChannels>
+    const pt::ptime& WaveformOf<T, numberOfSamples, numberOfChannels>::getTimestamp() const {
       return t0_;
     }
 
-    template<typename T, int numberOfChannels, int numberOfSamples>
-    pt::ptime WaveformOf<T, numberOfChannels, numberOfSamples>::getTimestamp(unsigned int index) const {
+    template<typename T, int numberOfSamples, int numberOfChannels>
+    pt::ptime WaveformOf<T, numberOfSamples, numberOfChannels>::getTimestamp(unsigned int index) const {
       return t0_ + dt_ * index;
     }
 
-    template<typename T, int numberOfChannels, int numberOfSamples>
-    const pt::time_duration& WaveformOf<T, numberOfChannels, numberOfSamples>::getTimeDelta() const {
+    template<typename T, int numberOfSamples, int numberOfChannels>
+    const pt::time_duration& WaveformOf<T, numberOfSamples, numberOfChannels>::getTimeDelta() const {
       return dt_;
     }
 
-    template<typename T, int numberOfChannels, int numberOfSamples>
-    unsigned int WaveformOf<T, numberOfChannels, numberOfSamples>::getStorageSize() const {
+    template<typename T, int numberOfSamples, int numberOfChannels>
+    unsigned int WaveformOf<T, numberOfSamples, numberOfChannels>::getStorageSize() const {
       util::Size size;
 
       long long int nanoseconds;
@@ -70,11 +70,11 @@ namespace blitzortung {
 	size.add(deltaNanoseconds);
       }
 
-      return size.get() + ArrayOf<T, numberOfChannels, numberOfSamples>::getStorageSize();
+      return size.get() + ArrayOf<T, numberOfSamples, numberOfChannels>::getStorageSize();
     }
 
-    template<typename T, int numberOfChannels, int numberOfSamples>
-    void WaveformOf<T, numberOfChannels, numberOfSamples>::toStream(std::iostream& stream) const {
+    template<typename T, int numberOfSamples, int numberOfChannels>
+    void WaveformOf<T, numberOfSamples, numberOfChannels>::toStream(std::iostream& stream) const {
       unsigned long long int nanoseconds = t0_.time_of_day().total_nanoseconds();
       util::Stream::WriteValue(stream, nanoseconds);
 
@@ -83,15 +83,15 @@ namespace blitzortung {
 	util::Stream::WriteValue(stream, deltaNanoseconds);
       }
 
-      ArrayOf<T, numberOfChannels, numberOfSamples>::toStream(stream);
+      ArrayOf<T, numberOfSamples, numberOfChannels>::toStream(stream);
     }
 
     inline float sqr(float x) {
       return x*x;
     }
 
-    template<typename T, int numberOfChannels, int numberOfSamples>
-    json_object* WaveformOf<T, numberOfChannels, numberOfSamples>::asJson(bool normalize) const {
+    template<typename T, int numberOfSamples, int numberOfChannels>
+    json_object* WaveformOf<T, numberOfSamples, numberOfChannels>::asJson(bool normalize) const {
       json_object* jsonArray = json_object_new_array();
 
       if (normalize && numberOfChannels == 2) {
@@ -134,8 +134,8 @@ namespace blitzortung {
       return jsonArray;
     }
 
-    template<typename T, int numberOfChannels, int numberOfSamples>
-    unsigned int WaveformOf<T, numberOfChannels, numberOfSamples>::GetSize(const data::Format& dataFormat) {
+    template<typename T, int numberOfSamples, int numberOfChannels>
+    unsigned int WaveformOf<T, numberOfSamples, numberOfChannels>::GetSize(const data::Format& dataFormat) {
       util::Size size;
 
       long long int nanoseconds;
@@ -150,23 +150,23 @@ namespace blitzortung {
       return size.get() + dataFormat.getDataSize();
     }
 
-    template<typename T, int numberOfChannels, int numberOfSamples>
-    std::ostream& operator <<(std::ostream& os, const bo::data::WaveformOf<T, numberOfChannels, numberOfSamples>& wfm) {
-      os << dynamic_cast<ArrayOf<T, numberOfChannels, numberOfSamples>>(wfm);
+    template<typename T, int numberOfSamples, int numberOfChannels>
+    std::ostream& operator <<(std::ostream& os, const bo::data::WaveformOf<T, numberOfSamples, numberOfChannels>& wfm) {
+      os << dynamic_cast<ArrayOf<T, numberOfSamples, numberOfChannels>>(wfm);
 
       return os;
     }
 
     //! explicit instatiation of functions to be linked afterwards
-    template class WaveformOf<signed char, 1, 1>;
-    template class WaveformOf<signed char, 1, 64>;
-    template class WaveformOf<signed char, 1, 128>;
-    template class WaveformOf<signed char, 1, 256>;
-    template class WaveformOf<signed char, 2, 1>;
-    template class WaveformOf<signed char, 2, 64>;
-    template class WaveformOf<signed char, 2, 128>;
-    template class WaveformOf<signed char, 2, 256>;
-    template class WaveformOf<signed short, 2, 1>;
+    template class WaveformOf<signed char, 1  , 1>;
+    template class WaveformOf<signed char, 64 , 1>;
+    template class WaveformOf<signed char, 128, 1>;
+    template class WaveformOf<signed char, 256, 1>;
+    template class WaveformOf<signed char, 1  , 2>;
+    template class WaveformOf<signed char, 64 , 2>;
+    template class WaveformOf<signed char, 128, 2>;
+    template class WaveformOf<signed char, 256, 2>;
+    template class WaveformOf<signed short, 1, 2>;
 
   }
 }

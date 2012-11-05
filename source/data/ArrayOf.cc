@@ -94,14 +94,16 @@ namespace blitzortung {
     }
 
     //! explicit instatiation of functions to be linked afterwards
-    //template class ArrayOf<signed char>;
-    //template class ArrayOf<unsigned char>;
-    //template class ArrayOf<signed short>;
-    //template class ArrayOf<unsigned short>;
-    //template class ArrayOf<signed int>;
-    //template class ArrayOf<unsigned int>;
-    //template class ArrayOf<float>;
-    //template class ArrayOf<double>;
+    template class ArrayOf<signed char, 1  , 1>;
+    template class ArrayOf<signed char, 64 , 1>;
+    template class ArrayOf<signed char, 128, 1>;
+    template class ArrayOf<signed char, 256, 1>;
+    template class ArrayOf<signed char, 1  , 2>;
+    template class ArrayOf<signed char, 64 , 2>;
+    template class ArrayOf<signed char, 128, 2>;
+    template class ArrayOf<signed char, 256, 2>;
+    template class ArrayOf<signed short, 1, 2>;
+
 
   }
 }
