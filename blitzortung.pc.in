@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@/blitzortung
+
+Name: @PACKAGE@
+Description: C++ library for blitzortung.org related operations (data i/o, ipc, utils)
+Version: @VERSION@
+Libs: -L${libdir} @libblitzortung_libs@
+Cflags: -I${includedir} @libblitzortung_cflags@
