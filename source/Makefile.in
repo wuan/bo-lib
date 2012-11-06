@@ -53,7 +53,13 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 subdir = source
-DIST_COMMON = $(libblitzortunginclude_HEADERS) $(srcdir)/Makefile.am \
+DIST_COMMON = $(libblitzortungdatainclude_HEADERS) \
+	$(libblitzortungexceptioninclude_HEADERS) \
+	$(libblitzortunginclude_HEADERS) \
+	$(libblitzortungipcinclude_HEADERS) \
+	$(libblitzortungipcserverfactoryinclude_HEADERS) \
+	$(libblitzortungipcserverinclude_HEADERS) \
+	$(libblitzortungutilinclude_HEADERS) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.in
@@ -91,7 +97,13 @@ am__uninstall_files_from_dir = { \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
 am__installdirs = "$(DESTDIR)$(libdir)" \
-	"$(DESTDIR)$(libblitzortungincludedir)"
+	"$(DESTDIR)$(libblitzortungdataincludedir)" \
+	"$(DESTDIR)$(libblitzortungexceptionincludedir)" \
+	"$(DESTDIR)$(libblitzortungincludedir)" \
+	"$(DESTDIR)$(libblitzortungipcincludedir)" \
+	"$(DESTDIR)$(libblitzortungipcserverfactoryincludedir)" \
+	"$(DESTDIR)$(libblitzortungipcserverincludedir)" \
+	"$(DESTDIR)$(libblitzortungutilincludedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libblitzortung_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
@@ -135,7 +147,13 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
-HEADERS = $(libblitzortunginclude_HEADERS)
+HEADERS = $(libblitzortungdatainclude_HEADERS) \
+	$(libblitzortungexceptioninclude_HEADERS) \
+	$(libblitzortunginclude_HEADERS) \
+	$(libblitzortungipcinclude_HEADERS) \
+	$(libblitzortungipcserverfactoryinclude_HEADERS) \
+	$(libblitzortungipcserverinclude_HEADERS) \
+	$(libblitzortungutilinclude_HEADERS)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -305,6 +323,12 @@ libblitzortung_la_SOURCES = \
 
 libblitzortungincludedir = $(includedir)/blitzortung
 libblitzortunginclude_HEADERS = \
+	Logger.h \
+	namespaces.h \
+	$(NULL)
+
+libblitzortungdataincludedir = $(includedir)/blitzortung/data
+libblitzortungdatainclude_HEADERS = \
 	data/Array.h \
 	data/ArrayOf.h \
 	data/Format.h \
@@ -317,24 +341,36 @@ libblitzortunginclude_HEADERS = \
 	data/WaveformOf.h \
 	data/GpsInfo.h data/GpsInfo.cc \
 	data/Gps.h \
-	\
+	$(NULL)
+
+libblitzortungexceptionincludedir = $(includedir)/blitzortung/exception
+libblitzortungexceptioninclude_HEADERS = \
 	exception/Base.h \
-	\
-	Logger.h \
-	\
-	namespaces.h \
-	\
+	$(NULL)
+
+libblitzortungipcincludedir = $(includedir)/blitzortung/ipc
+libblitzortungipcinclude_HEADERS = \
 	ipc/UnixSocket.h \
 	ipc/Listener.h \
 	ipc/Queue.h \
+	$(NULL)
+
+libblitzortungipcserverincludedir = $(includedir)/blitzortung/ipc/server
+libblitzortungipcserverinclude_HEADERS = \
 	ipc/server/Base.h \
+	$(NULL)
+
+libblitzortungipcserverfactoryincludedir = $(includedir)/blitzortung/ipc/server/factory
+libblitzortungipcserverfactoryinclude_HEADERS = \
 	ipc/server/factory/Base.h \
-	\
+	$(NULL)
+
+libblitzortungutilincludedir = $(includedir)/blitzortung/util
+libblitzortungutilinclude_HEADERS = \
 	util/RingBuffer.h \
 	util/Size.h \
 	util/String.h \
 	util/Stream.h \
-	\
 	$(NULL)
 
 all: all-am
@@ -568,6 +604,48 @@ clean-libtool:
 	-rm -rf ipc/server/.libs ipc/server/_libs
 	-rm -rf ipc/server/factory/.libs ipc/server/factory/_libs
 	-rm -rf util/.libs util/_libs
+install-libblitzortungdataincludeHEADERS: $(libblitzortungdatainclude_HEADERS)
+	@$(NORMAL_INSTALL)
+	@list='$(libblitzortungdatainclude_HEADERS)'; test -n "$(libblitzortungdataincludedir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(libblitzortungdataincludedir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(libblitzortungdataincludedir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(libblitzortungdataincludedir)'"; \
+	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(libblitzortungdataincludedir)" || exit $$?; \
+	done
+
+uninstall-libblitzortungdataincludeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(libblitzortungdatainclude_HEADERS)'; test -n "$(libblitzortungdataincludedir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(libblitzortungdataincludedir)'; $(am__uninstall_files_from_dir)
+install-libblitzortungexceptionincludeHEADERS: $(libblitzortungexceptioninclude_HEADERS)
+	@$(NORMAL_INSTALL)
+	@list='$(libblitzortungexceptioninclude_HEADERS)'; test -n "$(libblitzortungexceptionincludedir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(libblitzortungexceptionincludedir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(libblitzortungexceptionincludedir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(libblitzortungexceptionincludedir)'"; \
+	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(libblitzortungexceptionincludedir)" || exit $$?; \
+	done
+
+uninstall-libblitzortungexceptionincludeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(libblitzortungexceptioninclude_HEADERS)'; test -n "$(libblitzortungexceptionincludedir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(libblitzortungexceptionincludedir)'; $(am__uninstall_files_from_dir)
 install-libblitzortungincludeHEADERS: $(libblitzortunginclude_HEADERS)
 	@$(NORMAL_INSTALL)
 	@list='$(libblitzortunginclude_HEADERS)'; test -n "$(libblitzortungincludedir)" || list=; \
@@ -589,6 +667,90 @@ uninstall-libblitzortungincludeHEADERS:
 	@list='$(libblitzortunginclude_HEADERS)'; test -n "$(libblitzortungincludedir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	dir='$(DESTDIR)$(libblitzortungincludedir)'; $(am__uninstall_files_from_dir)
+install-libblitzortungipcincludeHEADERS: $(libblitzortungipcinclude_HEADERS)
+	@$(NORMAL_INSTALL)
+	@list='$(libblitzortungipcinclude_HEADERS)'; test -n "$(libblitzortungipcincludedir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(libblitzortungipcincludedir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(libblitzortungipcincludedir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(libblitzortungipcincludedir)'"; \
+	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(libblitzortungipcincludedir)" || exit $$?; \
+	done
+
+uninstall-libblitzortungipcincludeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(libblitzortungipcinclude_HEADERS)'; test -n "$(libblitzortungipcincludedir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(libblitzortungipcincludedir)'; $(am__uninstall_files_from_dir)
+install-libblitzortungipcserverfactoryincludeHEADERS: $(libblitzortungipcserverfactoryinclude_HEADERS)
+	@$(NORMAL_INSTALL)
+	@list='$(libblitzortungipcserverfactoryinclude_HEADERS)'; test -n "$(libblitzortungipcserverfactoryincludedir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(libblitzortungipcserverfactoryincludedir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(libblitzortungipcserverfactoryincludedir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(libblitzortungipcserverfactoryincludedir)'"; \
+	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(libblitzortungipcserverfactoryincludedir)" || exit $$?; \
+	done
+
+uninstall-libblitzortungipcserverfactoryincludeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(libblitzortungipcserverfactoryinclude_HEADERS)'; test -n "$(libblitzortungipcserverfactoryincludedir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(libblitzortungipcserverfactoryincludedir)'; $(am__uninstall_files_from_dir)
+install-libblitzortungipcserverincludeHEADERS: $(libblitzortungipcserverinclude_HEADERS)
+	@$(NORMAL_INSTALL)
+	@list='$(libblitzortungipcserverinclude_HEADERS)'; test -n "$(libblitzortungipcserverincludedir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(libblitzortungipcserverincludedir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(libblitzortungipcserverincludedir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(libblitzortungipcserverincludedir)'"; \
+	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(libblitzortungipcserverincludedir)" || exit $$?; \
+	done
+
+uninstall-libblitzortungipcserverincludeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(libblitzortungipcserverinclude_HEADERS)'; test -n "$(libblitzortungipcserverincludedir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(libblitzortungipcserverincludedir)'; $(am__uninstall_files_from_dir)
+install-libblitzortungutilincludeHEADERS: $(libblitzortungutilinclude_HEADERS)
+	@$(NORMAL_INSTALL)
+	@list='$(libblitzortungutilinclude_HEADERS)'; test -n "$(libblitzortungutilincludedir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(libblitzortungutilincludedir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(libblitzortungutilincludedir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(libblitzortungutilincludedir)'"; \
+	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(libblitzortungutilincludedir)" || exit $$?; \
+	done
+
+uninstall-libblitzortungutilincludeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(libblitzortungutilinclude_HEADERS)'; test -n "$(libblitzortungutilincludedir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(libblitzortungutilincludedir)'; $(am__uninstall_files_from_dir)
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
@@ -676,7 +838,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(LTLIBRARIES) $(HEADERS)
 installdirs:
-	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(libblitzortungincludedir)"; do \
+	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(libblitzortungdataincludedir)" "$(DESTDIR)$(libblitzortungexceptionincludedir)" "$(DESTDIR)$(libblitzortungincludedir)" "$(DESTDIR)$(libblitzortungipcincludedir)" "$(DESTDIR)$(libblitzortungipcserverfactoryincludedir)" "$(DESTDIR)$(libblitzortungipcserverincludedir)" "$(DESTDIR)$(libblitzortungutilincludedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -744,7 +906,13 @@ info: info-am
 
 info-am:
 
-install-data-am: install-libblitzortungincludeHEADERS
+install-data-am: install-libblitzortungdataincludeHEADERS \
+	install-libblitzortungexceptionincludeHEADERS \
+	install-libblitzortungincludeHEADERS \
+	install-libblitzortungipcincludeHEADERS \
+	install-libblitzortungipcserverfactoryincludeHEADERS \
+	install-libblitzortungipcserverincludeHEADERS \
+	install-libblitzortungutilincludeHEADERS
 
 install-dvi: install-dvi-am
 
@@ -791,7 +959,13 @@ ps: ps-am
 ps-am:
 
 uninstall-am: uninstall-libLTLIBRARIES \
-	uninstall-libblitzortungincludeHEADERS
+	uninstall-libblitzortungdataincludeHEADERS \
+	uninstall-libblitzortungexceptionincludeHEADERS \
+	uninstall-libblitzortungincludeHEADERS \
+	uninstall-libblitzortungipcincludeHEADERS \
+	uninstall-libblitzortungipcserverfactoryincludeHEADERS \
+	uninstall-libblitzortungipcserverincludeHEADERS \
+	uninstall-libblitzortungutilincludeHEADERS
 
 .MAKE: install-am install-strip
 
@@ -802,14 +976,27 @@ uninstall-am: uninstall-libLTLIBRARIES \
 	install install-am install-data install-data-am install-dvi \
 	install-dvi-am install-exec install-exec-am install-html \
 	install-html-am install-info install-info-am \
-	install-libLTLIBRARIES install-libblitzortungincludeHEADERS \
-	install-man install-pdf install-pdf-am install-ps \
-	install-ps-am install-strip installcheck installcheck-am \
-	installdirs maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-compile mostlyclean-generic \
-	mostlyclean-libtool pdf pdf-am ps ps-am tags uninstall \
-	uninstall-am uninstall-libLTLIBRARIES \
-	uninstall-libblitzortungincludeHEADERS
+	install-libLTLIBRARIES \
+	install-libblitzortungdataincludeHEADERS \
+	install-libblitzortungexceptionincludeHEADERS \
+	install-libblitzortungincludeHEADERS \
+	install-libblitzortungipcincludeHEADERS \
+	install-libblitzortungipcserverfactoryincludeHEADERS \
+	install-libblitzortungipcserverincludeHEADERS \
+	install-libblitzortungutilincludeHEADERS install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am tags uninstall uninstall-am \
+	uninstall-libLTLIBRARIES \
+	uninstall-libblitzortungdataincludeHEADERS \
+	uninstall-libblitzortungexceptionincludeHEADERS \
+	uninstall-libblitzortungincludeHEADERS \
+	uninstall-libblitzortungipcincludeHEADERS \
+	uninstall-libblitzortungipcserverfactoryincludeHEADERS \
+	uninstall-libblitzortungipcserverincludeHEADERS \
+	uninstall-libblitzortungutilincludeHEADERS
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

@@ -48,6 +48,12 @@ libblitzortung_la_SOURCES = \
 
 libblitzortungincludedir = $(includedir)/blitzortung
 libblitzortunginclude_HEADERS = \
+	Logger.h \
+	namespaces.h \
+	$(NULL)
+
+libblitzortungdataincludedir = $(includedir)/blitzortung/data
+libblitzortungdatainclude_HEADERS = \
 	data/Array.h \
 	data/ArrayOf.h \
 	data/Format.h \
@@ -60,23 +66,34 @@ libblitzortunginclude_HEADERS = \
 	data/WaveformOf.h \
 	data/GpsInfo.h data/GpsInfo.cc \
 	data/Gps.h \
-	\
+	$(NULL)
+
+libblitzortungexceptionincludedir = $(includedir)/blitzortung/exception
+libblitzortungexceptioninclude_HEADERS = \
 	exception/Base.h \
-	\
-	Logger.h \
-	\
-	namespaces.h \
-	\
+	$(NULL)
+
+libblitzortungipcincludedir = $(includedir)/blitzortung/ipc
+libblitzortungipcinclude_HEADERS = \
 	ipc/UnixSocket.h \
 	ipc/Listener.h \
 	ipc/Queue.h \
+	$(NULL)
+
+libblitzortungipcserverincludedir = $(includedir)/blitzortung/ipc/server
+libblitzortungipcserverinclude_HEADERS = \
 	ipc/server/Base.h \
+	$(NULL)
+
+libblitzortungipcserverfactoryincludedir = $(includedir)/blitzortung/ipc/server/factory
+libblitzortungipcserverfactoryinclude_HEADERS = \
 	ipc/server/factory/Base.h \
-	\
+	$(NULL)
+
+libblitzortungutilincludedir = $(includedir)/blitzortung/util
+libblitzortungutilinclude_HEADERS = \
 	util/RingBuffer.h \
 	util/Size.h \
 	util/String.h \
 	util/Stream.h \
-	\
 	$(NULL)
-
