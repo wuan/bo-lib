@@ -59,6 +59,7 @@ DIST_COMMON = $(libblitzortungdatainclude_HEADERS) \
 	$(libblitzortungipcinclude_HEADERS) \
 	$(libblitzortungipcserverfactoryinclude_HEADERS) \
 	$(libblitzortungipcserverinclude_HEADERS) \
+	$(libblitzortungparserinclude_HEADERS) \
 	$(libblitzortungutilinclude_HEADERS) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -103,6 +104,7 @@ am__installdirs = "$(DESTDIR)$(libdir)" \
 	"$(DESTDIR)$(libblitzortungipcincludedir)" \
 	"$(DESTDIR)$(libblitzortungipcserverfactoryincludedir)" \
 	"$(DESTDIR)$(libblitzortungipcserverincludedir)" \
+	"$(DESTDIR)$(libblitzortungparserincludedir)" \
 	"$(DESTDIR)$(libblitzortungutilincludedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libblitzortung_la_LIBADD =
@@ -112,8 +114,9 @@ am_libblitzortung_la_OBJECTS = data/Array.lo data/ArrayOf.lo \
 	data/EventsFile.lo data/EventsHeader.lo data/Waveform.lo \
 	data/WaveformOf.lo data/GpsInfo.lo exception/Base.lo Logger.lo \
 	ipc/UnixSocket.lo ipc/Listener.lo ipc/Queue.lo \
-	ipc/server/Base.lo ipc/server/factory/Base.lo \
-	util/RingBuffer.lo util/String.lo
+	ipc/server/Base.lo ipc/server/factory/Base.lo parser/Base.lo \
+	parser/Sample.lo parser/Tick.lo util/RingBuffer.lo \
+	util/String.lo
 libblitzortung_la_OBJECTS = $(am_libblitzortung_la_OBJECTS)
 libblitzortung_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
@@ -153,6 +156,7 @@ HEADERS = $(libblitzortungdatainclude_HEADERS) \
 	$(libblitzortungipcinclude_HEADERS) \
 	$(libblitzortungipcserverfactoryinclude_HEADERS) \
 	$(libblitzortungipcserverinclude_HEADERS) \
+	$(libblitzortungparserinclude_HEADERS) \
 	$(libblitzortungutilinclude_HEADERS)
 ETAGS = etags
 CTAGS = ctags
@@ -164,6 +168,7 @@ AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
+BLITZORTUNG_LDFLAGS = @BLITZORTUNG_LDFLAGS@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
@@ -281,9 +286,7 @@ AM_LDFLAGS = \
 
 lib_LTLIBRARIES = libblitzortung.la
 libblitzortung_la_LDFLAGS = \
-	-llog4cpp \
-	-ljson \
-	-lboost_regex \
+	${BLITZORTUNG_LDFLAGS} \
 	-release ${VERSION} \
 	-version_info ${LIBRARY_VERSION} \
 	-no undefined
@@ -313,6 +316,10 @@ libblitzortung_la_SOURCES = \
 	ipc/Queue.h ipc/Queue.cc \
 	ipc/server/Base.h ipc/server/Base.cc \
 	ipc/server/factory/Base.h ipc/server/factory/Base.cc \
+	\
+	parser/Base.h parser/Base.cc \
+	parser/Sample.h parser/Sample.cc \
+	parser/Tick.h parser/Tick.cc\
 	\
 	util/RingBuffer.h util/RingBuffer.cc \
 	util/Size.h \
@@ -363,6 +370,13 @@ libblitzortungipcserverinclude_HEADERS = \
 libblitzortungipcserverfactoryincludedir = $(includedir)/blitzortung/ipc/server/factory
 libblitzortungipcserverfactoryinclude_HEADERS = \
 	ipc/server/factory/Base.h \
+	$(NULL)
+
+libblitzortungparserincludedir = $(includedir)/blitzortung/parser
+libblitzortungparserinclude_HEADERS = \
+	parser/Base.h \
+	parser/Sample.h \
+	parser/Tick.h \
 	$(NULL)
 
 libblitzortungutilincludedir = $(includedir)/blitzortung/util
@@ -492,6 +506,18 @@ ipc/server/factory/$(DEPDIR)/$(am__dirstamp):
 	@: > ipc/server/factory/$(DEPDIR)/$(am__dirstamp)
 ipc/server/factory/Base.lo: ipc/server/factory/$(am__dirstamp) \
 	ipc/server/factory/$(DEPDIR)/$(am__dirstamp)
+parser/$(am__dirstamp):
+	@$(MKDIR_P) parser
+	@: > parser/$(am__dirstamp)
+parser/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) parser/$(DEPDIR)
+	@: > parser/$(DEPDIR)/$(am__dirstamp)
+parser/Base.lo: parser/$(am__dirstamp) \
+	parser/$(DEPDIR)/$(am__dirstamp)
+parser/Sample.lo: parser/$(am__dirstamp) \
+	parser/$(DEPDIR)/$(am__dirstamp)
+parser/Tick.lo: parser/$(am__dirstamp) \
+	parser/$(DEPDIR)/$(am__dirstamp)
 util/$(am__dirstamp):
 	@$(MKDIR_P) util
 	@: > util/$(am__dirstamp)
@@ -540,6 +566,12 @@ mostlyclean-compile:
 	-rm -f ipc/server/Base.lo
 	-rm -f ipc/server/factory/Base.$(OBJEXT)
 	-rm -f ipc/server/factory/Base.lo
+	-rm -f parser/Base.$(OBJEXT)
+	-rm -f parser/Base.lo
+	-rm -f parser/Sample.$(OBJEXT)
+	-rm -f parser/Sample.lo
+	-rm -f parser/Tick.$(OBJEXT)
+	-rm -f parser/Tick.lo
 	-rm -f util/RingBuffer.$(OBJEXT)
 	-rm -f util/RingBuffer.lo
 	-rm -f util/String.$(OBJEXT)
@@ -566,6 +598,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@ipc/$(DEPDIR)/UnixSocket.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@ipc/server/$(DEPDIR)/Base.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@ipc/server/factory/$(DEPDIR)/Base.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@parser/$(DEPDIR)/Base.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@parser/$(DEPDIR)/Sample.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@parser/$(DEPDIR)/Tick.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@util/$(DEPDIR)/RingBuffer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@util/$(DEPDIR)/String.Plo@am__quote@
 
@@ -603,6 +638,7 @@ clean-libtool:
 	-rm -rf ipc/.libs ipc/_libs
 	-rm -rf ipc/server/.libs ipc/server/_libs
 	-rm -rf ipc/server/factory/.libs ipc/server/factory/_libs
+	-rm -rf parser/.libs parser/_libs
 	-rm -rf util/.libs util/_libs
 install-libblitzortungdataincludeHEADERS: $(libblitzortungdatainclude_HEADERS)
 	@$(NORMAL_INSTALL)
@@ -730,6 +766,27 @@ uninstall-libblitzortungipcserverincludeHEADERS:
 	@list='$(libblitzortungipcserverinclude_HEADERS)'; test -n "$(libblitzortungipcserverincludedir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	dir='$(DESTDIR)$(libblitzortungipcserverincludedir)'; $(am__uninstall_files_from_dir)
+install-libblitzortungparserincludeHEADERS: $(libblitzortungparserinclude_HEADERS)
+	@$(NORMAL_INSTALL)
+	@list='$(libblitzortungparserinclude_HEADERS)'; test -n "$(libblitzortungparserincludedir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(libblitzortungparserincludedir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(libblitzortungparserincludedir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(libblitzortungparserincludedir)'"; \
+	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(libblitzortungparserincludedir)" || exit $$?; \
+	done
+
+uninstall-libblitzortungparserincludeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(libblitzortungparserinclude_HEADERS)'; test -n "$(libblitzortungparserincludedir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(libblitzortungparserincludedir)'; $(am__uninstall_files_from_dir)
 install-libblitzortungutilincludeHEADERS: $(libblitzortungutilinclude_HEADERS)
 	@$(NORMAL_INSTALL)
 	@list='$(libblitzortungutilinclude_HEADERS)'; test -n "$(libblitzortungutilincludedir)" || list=; \
@@ -838,7 +895,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(LTLIBRARIES) $(HEADERS)
 installdirs:
-	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(libblitzortungdataincludedir)" "$(DESTDIR)$(libblitzortungexceptionincludedir)" "$(DESTDIR)$(libblitzortungincludedir)" "$(DESTDIR)$(libblitzortungipcincludedir)" "$(DESTDIR)$(libblitzortungipcserverfactoryincludedir)" "$(DESTDIR)$(libblitzortungipcserverincludedir)" "$(DESTDIR)$(libblitzortungutilincludedir)"; do \
+	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(libblitzortungdataincludedir)" "$(DESTDIR)$(libblitzortungexceptionincludedir)" "$(DESTDIR)$(libblitzortungincludedir)" "$(DESTDIR)$(libblitzortungipcincludedir)" "$(DESTDIR)$(libblitzortungipcserverfactoryincludedir)" "$(DESTDIR)$(libblitzortungipcserverincludedir)" "$(DESTDIR)$(libblitzortungparserincludedir)" "$(DESTDIR)$(libblitzortungutilincludedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -877,6 +934,8 @@ distclean-generic:
 	-rm -f ipc/server/$(am__dirstamp)
 	-rm -f ipc/server/factory/$(DEPDIR)/$(am__dirstamp)
 	-rm -f ipc/server/factory/$(am__dirstamp)
+	-rm -f parser/$(DEPDIR)/$(am__dirstamp)
+	-rm -f parser/$(am__dirstamp)
 	-rm -f util/$(DEPDIR)/$(am__dirstamp)
 	-rm -f util/$(am__dirstamp)
 
@@ -889,7 +948,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf ./$(DEPDIR) data/$(DEPDIR) exception/$(DEPDIR) ipc/$(DEPDIR) ipc/server/$(DEPDIR) ipc/server/factory/$(DEPDIR) util/$(DEPDIR)
+	-rm -rf ./$(DEPDIR) data/$(DEPDIR) exception/$(DEPDIR) ipc/$(DEPDIR) ipc/server/$(DEPDIR) ipc/server/factory/$(DEPDIR) parser/$(DEPDIR) util/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -912,6 +971,7 @@ install-data-am: install-libblitzortungdataincludeHEADERS \
 	install-libblitzortungipcincludeHEADERS \
 	install-libblitzortungipcserverfactoryincludeHEADERS \
 	install-libblitzortungipcserverincludeHEADERS \
+	install-libblitzortungparserincludeHEADERS \
 	install-libblitzortungutilincludeHEADERS
 
 install-dvi: install-dvi-am
@@ -941,7 +1001,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf ./$(DEPDIR) data/$(DEPDIR) exception/$(DEPDIR) ipc/$(DEPDIR) ipc/server/$(DEPDIR) ipc/server/factory/$(DEPDIR) util/$(DEPDIR)
+	-rm -rf ./$(DEPDIR) data/$(DEPDIR) exception/$(DEPDIR) ipc/$(DEPDIR) ipc/server/$(DEPDIR) ipc/server/factory/$(DEPDIR) parser/$(DEPDIR) util/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -965,6 +1025,7 @@ uninstall-am: uninstall-libLTLIBRARIES \
 	uninstall-libblitzortungipcincludeHEADERS \
 	uninstall-libblitzortungipcserverfactoryincludeHEADERS \
 	uninstall-libblitzortungipcserverincludeHEADERS \
+	uninstall-libblitzortungparserincludeHEADERS \
 	uninstall-libblitzortungutilincludeHEADERS
 
 .MAKE: install-am install-strip
@@ -983,6 +1044,7 @@ uninstall-am: uninstall-libLTLIBRARIES \
 	install-libblitzortungipcincludeHEADERS \
 	install-libblitzortungipcserverfactoryincludeHEADERS \
 	install-libblitzortungipcserverincludeHEADERS \
+	install-libblitzortungparserincludeHEADERS \
 	install-libblitzortungutilincludeHEADERS install-man \
 	install-pdf install-pdf-am install-ps install-ps-am \
 	install-strip installcheck installcheck-am installdirs \
@@ -996,6 +1058,7 @@ uninstall-am: uninstall-libLTLIBRARIES \
 	uninstall-libblitzortungipcincludeHEADERS \
 	uninstall-libblitzortungipcserverfactoryincludeHEADERS \
 	uninstall-libblitzortungipcserverincludeHEADERS \
+	uninstall-libblitzortungparserincludeHEADERS \
 	uninstall-libblitzortungutilincludeHEADERS
 
 

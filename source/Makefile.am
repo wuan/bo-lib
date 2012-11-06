@@ -6,9 +6,7 @@ AM_LDFLAGS = \
 lib_LTLIBRARIES = libblitzortung.la
 
 libblitzortung_la_LDFLAGS = \
-	-llog4cpp \
-	-ljson \
-	-lboost_regex \
+	${BLITZORTUNG_LDFLAGS} \
 	-release ${VERSION} \
 	-version_info ${LIBRARY_VERSION} \
 	-no undefined
@@ -38,6 +36,10 @@ libblitzortung_la_SOURCES = \
 	ipc/Queue.h ipc/Queue.cc \
 	ipc/server/Base.h ipc/server/Base.cc \
 	ipc/server/factory/Base.h ipc/server/factory/Base.cc \
+	\
+	parser/Base.h parser/Base.cc \
+	parser/Sample.h parser/Sample.cc \
+	parser/Tick.h parser/Tick.cc\
 	\
 	util/RingBuffer.h util/RingBuffer.cc \
 	util/Size.h \
@@ -89,6 +91,14 @@ libblitzortungipcserverfactoryincludedir = $(includedir)/blitzortung/ipc/server/
 libblitzortungipcserverfactoryinclude_HEADERS = \
 	ipc/server/factory/Base.h \
 	$(NULL)
+
+libblitzortungparserincludedir = $(includedir)/blitzortung/parser
+libblitzortungparserinclude_HEADERS = \
+	parser/Base.h \
+	parser/Sample.h \
+	parser/Tick.h \
+	$(NULL)
+
 
 libblitzortungutilincludedir = $(includedir)/blitzortung/util
 libblitzortungutilinclude_HEADERS = \

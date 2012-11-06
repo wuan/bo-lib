@@ -14,6 +14,9 @@ CXXFLAGS="${CXXFLAGS} -std=gnu++0x -pthread"
 CXXFLAGS="${CXXFLAGS} -fsigned-char -Wall -Wextra -pedantic -Weffc++ -DBOOST_DATE_TIME_POSIX_TIME_STD_CONFIG"
 AC_SUBST(CXXFLAGS)
 
+BLITZORTUNG_LDFLAGS="-llog4cpp -ljson -lboost_regex"
+AC_SUBST(BLITZORTUNG_LDFLAGS)
+
 AC_PROG_CXX
 # include libtool support
 LT_INIT([pic-only, disable-static])
