@@ -1,4 +1,4 @@
-Source: blitzortung-lib
+Source: libblitzortung
 Section: misc
 Priority: extra
 Maintainer: Andreas Wuerl <blitzortung@tryb.de>
@@ -6,10 +6,17 @@ Build-Depends: debhelper (>= 7), python(>= 2.5), autoconf (>=2.60), automake (>=
 Standards-Version: 3.9.1
 Homepage: http://launchpad.net/blitzortung-tracker
 
-Package: blitzortung-lib
+Package: libblitzortung
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Conflicts:
 Replaces:
 Description: blitzortung.org software library
  This package provides a software library with functions for blitzortung.org related projects
+
+Package: libblitzortung-dev
+Architecture: any
+Conflicts:
+Replaces:
+Description: blitzortung.org software library development files
+ This package provides the development files for the blitzortung.org library

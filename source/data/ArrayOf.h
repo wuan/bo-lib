@@ -17,8 +17,6 @@ namespace blitzortung {
       
         std::vector<T> data_;
 
-	unsigned char numberOfChannels_;
-
       protected:
 
 	//! returns the size of a single data element

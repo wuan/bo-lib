@@ -25,12 +25,13 @@ libblitzortung_la_SOURCES = \
 	data/Waveform.h data/Waveform.cc \
 	data/WaveformOf.h data/WaveformOf.cc \
 	data/GpsInfo.h data/GpsInfo.cc \
+	data/Gps.h \
 	\
 	exception/Base.h exception/Base.cc \
 	\
 	Logger.h Logger.cc \
 	\
-	namespace.h \
+	namespaces.h \
 	\
 	ipc/UnixSocket.h ipc/UnixSocket.cc \
 	ipc/Listener.h ipc/Listener.cc \
@@ -41,6 +42,40 @@ libblitzortung_la_SOURCES = \
 	util/RingBuffer.h util/RingBuffer.cc \
 	util/Size.h \
 	util/String.h util/String.cc \
+	util/Stream.h \
+	\
+	$(NULL)
+
+libblitzortungincludedir = $(includedir)/blitzortung
+libblitzortunginclude_HEADERS = \
+	data/Array.h \
+	data/ArrayOf.h \
+	data/Format.h \
+	data/Event.h \
+	data/MEvent.h \
+	data/Events.h \
+	data/EventsFile.h \
+	data/EventsHeader.h \
+	data/Waveform.h \
+	data/WaveformOf.h \
+	data/GpsInfo.h data/GpsInfo.cc \
+	data/Gps.h \
+	\
+	exception/Base.h \
+	\
+	Logger.h \
+	\
+	namespaces.h \
+	\
+	ipc/UnixSocket.h \
+	ipc/Listener.h \
+	ipc/Queue.h \
+	ipc/server/Base.h \
+	ipc/server/factory/Base.h \
+	\
+	util/RingBuffer.h \
+	util/Size.h \
+	util/String.h \
 	util/Stream.h \
 	\
 	$(NULL)

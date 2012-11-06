@@ -15,6 +15,7 @@
 
 @SET_MAKE@
 
+
 VPATH = @srcdir@
 am__make_dryrun = \
   { \
@@ -52,7 +53,8 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 subdir = source
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+DIST_COMMON = $(libblitzortunginclude_HEADERS) $(srcdir)/Makefile.am \
+	$(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.in
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -88,7 +90,8 @@ am__uninstall_files_from_dir = { \
     || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
-am__installdirs = "$(DESTDIR)$(libdir)"
+am__installdirs = "$(DESTDIR)$(libdir)" \
+	"$(DESTDIR)$(libblitzortungincludedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libblitzortung_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
@@ -132,6 +135,7 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
+HEADERS = $(libblitzortunginclude_HEADERS)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -278,12 +282,13 @@ libblitzortung_la_SOURCES = \
 	data/Waveform.h data/Waveform.cc \
 	data/WaveformOf.h data/WaveformOf.cc \
 	data/GpsInfo.h data/GpsInfo.cc \
+	data/Gps.h \
 	\
 	exception/Base.h exception/Base.cc \
 	\
 	Logger.h Logger.cc \
 	\
-	namespace.h \
+	namespaces.h \
 	\
 	ipc/UnixSocket.h ipc/UnixSocket.cc \
 	ipc/Listener.h ipc/Listener.cc \
@@ -294,6 +299,40 @@ libblitzortung_la_SOURCES = \
 	util/RingBuffer.h util/RingBuffer.cc \
 	util/Size.h \
 	util/String.h util/String.cc \
+	util/Stream.h \
+	\
+	$(NULL)
+
+libblitzortungincludedir = $(includedir)/blitzortung
+libblitzortunginclude_HEADERS = \
+	data/Array.h \
+	data/ArrayOf.h \
+	data/Format.h \
+	data/Event.h \
+	data/MEvent.h \
+	data/Events.h \
+	data/EventsFile.h \
+	data/EventsHeader.h \
+	data/Waveform.h \
+	data/WaveformOf.h \
+	data/GpsInfo.h data/GpsInfo.cc \
+	data/Gps.h \
+	\
+	exception/Base.h \
+	\
+	Logger.h \
+	\
+	namespaces.h \
+	\
+	ipc/UnixSocket.h \
+	ipc/Listener.h \
+	ipc/Queue.h \
+	ipc/server/Base.h \
+	ipc/server/factory/Base.h \
+	\
+	util/RingBuffer.h \
+	util/Size.h \
+	util/String.h \
 	util/Stream.h \
 	\
 	$(NULL)
@@ -529,6 +568,27 @@ clean-libtool:
 	-rm -rf ipc/server/.libs ipc/server/_libs
 	-rm -rf ipc/server/factory/.libs ipc/server/factory/_libs
 	-rm -rf util/.libs util/_libs
+install-libblitzortungincludeHEADERS: $(libblitzortunginclude_HEADERS)
+	@$(NORMAL_INSTALL)
+	@list='$(libblitzortunginclude_HEADERS)'; test -n "$(libblitzortungincludedir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(libblitzortungincludedir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(libblitzortungincludedir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(libblitzortungincludedir)'"; \
+	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(libblitzortungincludedir)" || exit $$?; \
+	done
+
+uninstall-libblitzortungincludeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(libblitzortunginclude_HEADERS)'; test -n "$(libblitzortungincludedir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(libblitzortungincludedir)'; $(am__uninstall_files_from_dir)
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
@@ -614,9 +674,9 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(LTLIBRARIES)
+all-am: Makefile $(LTLIBRARIES) $(HEADERS)
 installdirs:
-	for dir in "$(DESTDIR)$(libdir)"; do \
+	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(libblitzortungincludedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -684,7 +744,7 @@ info: info-am
 
 info-am:
 
-install-data-am:
+install-data-am: install-libblitzortungincludeHEADERS
 
 install-dvi: install-dvi-am
 
@@ -730,7 +790,8 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-libLTLIBRARIES
+uninstall-am: uninstall-libLTLIBRARIES \
+	uninstall-libblitzortungincludeHEADERS
 
 .MAKE: install-am install-strip
 
@@ -741,12 +802,14 @@ uninstall-am: uninstall-libLTLIBRARIES
 	install install-am install-data install-data-am install-dvi \
 	install-dvi-am install-exec install-exec-am install-html \
 	install-html-am install-info install-info-am \
-	install-libLTLIBRARIES install-man install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	tags uninstall uninstall-am uninstall-libLTLIBRARIES
+	install-libLTLIBRARIES install-libblitzortungincludeHEADERS \
+	install-man install-pdf install-pdf-am install-ps \
+	install-ps-am install-strip installcheck installcheck-am \
+	installdirs maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-compile mostlyclean-generic \
+	mostlyclean-libtool pdf pdf-am ps ps-am tags uninstall \
+	uninstall-am uninstall-libLTLIBRARIES \
+	uninstall-libblitzortungincludeHEADERS
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
