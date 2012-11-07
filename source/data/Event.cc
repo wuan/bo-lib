@@ -11,7 +11,7 @@ namespace blitzortung {
     }
 
     Event::Event(const data::Format& format, const gr::date& date, std::iostream& stream) :
-      waveform_(format.createWaveformFromStream(date, stream)),
+      waveform_(format.createWaveform(date, stream)),
       gpsInfo_(GpsInfo::AP(new GpsInfo(stream)))
     {
     }
