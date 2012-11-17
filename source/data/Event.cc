@@ -85,7 +85,7 @@ namespace blitzortung {
       json_object* jsonArray = json_object_new_array();
 
       pt::time_facet *timefacet = new pt::time_facet();
-      timefacet->format("%Y-%m-%d %H:%M:%S");
+      timefacet->format("%Y-%m-%d %H:%M:%S.%f");
 
       std::ostringstream oss;
       std::locale oldLocale = oss.imbue(std::locale(std::locale::classic(), timefacet));
@@ -94,7 +94,6 @@ namespace blitzortung {
 
       json_object_array_add(jsonArray, json_object_new_string(oss.str().c_str()));
 
-      json_object_array_add(jsonArray, json_object_new_int(waveform_->getTimestamp().time_of_day().fractional_seconds()));
       json_object_array_add(jsonArray, json_object_new_double(gpsInfo_->getLongitude()));
       json_object_array_add(jsonArray, json_object_new_double(gpsInfo_->getLatitude()));
       json_object_array_add(jsonArray, json_object_new_int(gpsInfo_->getAltitude()));
