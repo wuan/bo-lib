@@ -11,7 +11,7 @@ namespace blitzortung {
       longitude_(),
       latitude_(),
       altitude_(),
-      numberOfSatellites_(),
+      satelliteCount_(),
       firmwareVersion_(),
       logger_("hardware.parsing.Tick()")
     {
@@ -24,7 +24,7 @@ namespace blitzortung {
       unsigned int latitudeIndex = 0;
       unsigned int latitudeHemisphereIndex = 0;
       unsigned int altitudeIndex = 0;
-      unsigned int numberOfSatellitesIndex = 0;
+      unsigned int satelliteCountIndex = 0;
       unsigned int firmwareVersionIndex = 0;
 
       unsigned int index = 1;
@@ -38,7 +38,7 @@ namespace blitzortung {
 	longitudeIndex = index++;
 	longitudeHemisphereIndex = index++;
 	altitudeIndex = index++;
-	numberOfSatellitesIndex = index++;
+	satelliteCountIndex = index++;
 	firmwareVersionIndex = index++;
 	valid_ = true;
       } else if (fields[0] == "BLSEC") {
@@ -53,7 +53,7 @@ namespace blitzortung {
 	  longitudeHemisphereIndex = index++;
 	  altitudeIndex = index++;
 	  index++;
-	  numberOfSatellitesIndex = index++;
+	  satelliteCountIndex = index++;
 	  valid_ = true;
 	} else if (fields.size() == 9) {
 	  timeIndex = index++;
@@ -95,10 +95,10 @@ namespace blitzortung {
 	  altitude_ = 0;
 	}
 
-	if (numberOfSatellitesIndex > 0) {
-	  numberOfSatellites_ = parseInt(fields[numberOfSatellitesIndex]);
+	if (satelliteCountIndex > 0) {
+	  satelliteCount_ = parseInt(fields[satelliteCountIndex]);
 	} else {
-	  numberOfSatellites_ = 0;
+	  satelliteCount_ = 0;
 	}
 
 	if (firmwareVersionIndex > 0) {
@@ -110,8 +110,8 @@ namespace blitzortung {
 
     }
 
-    unsigned short Tick::getNumberOfSatellites() const {
-      return numberOfSatellites_;
+    unsigned short Tick::getSatelliteCount() const {
+      return satelliteCount_;
     }
 
     float Tick::getLongitude() const {

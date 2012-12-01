@@ -21,7 +21,7 @@ namespace blitzortung {
 	virtual short getAltitude() const = 0;
 
 	//! returns the number of satellites available to the gps module
-	virtual unsigned short getNumberOfSatellites() const = 0;
+	virtual unsigned short getSatelliteCount() const = 0;
 
 	//! returns the acquisition status of the gps module
 	virtual char getStatus() const = 0;

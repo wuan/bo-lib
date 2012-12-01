@@ -34,7 +34,7 @@ namespace blitzortung {
 	short altitude_;
 
 	//! gps number of satellites in use
-	unsigned short numberOfSatellites_;
+	unsigned short satelliteCount_;
 
 	//! controller firmware version
 	std::string firmwareVersion_;
@@ -63,7 +63,7 @@ namespace blitzortung {
 	short getAltitude() const;
 
 	//! get average satellite count value
-	unsigned short getNumberOfSatellites() const;
+	unsigned short getSatelliteCount() const;
 
 	//! get timestamp from counter value
 	const pt::ptime& getDateTime() const;
