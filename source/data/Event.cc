@@ -4,6 +4,8 @@
 namespace blitzortung {
   namespace data {
 
+    const pt::time_duration Event::TIMESTAMP_OFFSET = pt::seconds(1);
+
     Event::Event(Waveform::AP&& waveform, GpsInfo::AP&& gpsInfo) :
       waveform_(std::move(waveform)),
       gpsInfo_(std::move(gpsInfo))
@@ -90,14 +92,14 @@ namespace blitzortung {
       std::ostringstream oss;
       std::locale oldLocale = oss.imbue(std::locale(std::locale::classic(), timefacet));
 
-      oss << waveform_->getTimestamp();
+      oss << waveform_->getTimestamp() + TIMESTAMP_OFFSET;
 
       json_object_array_add(jsonArray, json_object_new_string(oss.str().c_str()));
 
       json_object_array_add(jsonArray, json_object_new_double(gpsInfo_->getLongitude()));
       json_object_array_add(jsonArray, json_object_new_double(gpsInfo_->getLatitude()));
       json_object_array_add(jsonArray, json_object_new_int(gpsInfo_->getAltitude()));
-      json_object_array_add(jsonArray, json_object_new_int(gpsInfo_->getNumberOfSatellites())); 
+      json_object_array_add(jsonArray, json_object_new_int(gpsInfo_->getSatelliteCount())); 
       json_object_array_add(jsonArray, json_object_new_int(waveform_->getTimeDelta().total_nanoseconds()));
 
       float scaleFactor = 1 << (waveform_->getElementSize() * 8 - 1);
@@ -116,7 +118,7 @@ namespace blitzortung {
       os.precision(4);
       unsigned int maxIndex = wfm.getMaxIndex();
       
-      os << event.getTimestamp(maxIndex) << " " << gpsInfo;
+      os << event.getTimestamp(maxIndex) + Event::TIMESTAMP_OFFSET << " " << gpsInfo;
       os << " " << wfm.getTimeDelta().total_nanoseconds();
 
       os.precision(2);

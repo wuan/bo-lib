@@ -10,16 +10,22 @@ namespace blitzortung {
       longitude_(gps.getLongitude()),
       latitude_(gps.getLatitude()),
       altitude_(gps.getAltitude()),
-      numberOfSatellites_(gps.getNumberOfSatellites()),
+      satelliteCount_(gps.getSatelliteCount()),
       status_(gps.getStatus())
     {
     }
 
-    GpsInfo::GpsInfo(std::iostream& stream) {
+    GpsInfo::GpsInfo(std::iostream& stream) :
+      longitude_(0.0),
+      latitude_(0.0),
+      altitude_(0),
+      satelliteCount_(0),
+      status_(0)
+    {
 	util::Stream::ReadValue(stream, longitude_);
 	util::Stream::ReadValue(stream, latitude_);
 	util::Stream::ReadValue(stream, altitude_);
-	util::Stream::ReadValue(stream, numberOfSatellites_);
+	util::Stream::ReadValue(stream, satelliteCount_);
 	util::Stream::ReadValue(stream, status_);
     }
 
@@ -27,7 +33,7 @@ namespace blitzortung {
       longitude_(longitude),
       latitude_(latitude),
       altitude_(altitude),
-      numberOfSatellites_(0),
+      satelliteCount_(0),
       status_(0)
     {
     }
@@ -48,8 +54,8 @@ namespace blitzortung {
       return altitude_;
     }
 
-    unsigned short GpsInfo::getNumberOfSatellites() const {
-      return numberOfSatellites_;
+    unsigned short GpsInfo::getSatelliteCount() const {
+      return satelliteCount_;
     }
 
     char GpsInfo::getStatus() const {
@@ -61,7 +67,7 @@ namespace blitzortung {
       util::Stream::WriteValue(stream, longitude_);
       util::Stream::WriteValue(stream, latitude_);
       util::Stream::WriteValue(stream, altitude_);
-      util::Stream::WriteValue(stream, numberOfSatellites_);
+      util::Stream::WriteValue(stream, satelliteCount_);
       util::Stream::WriteValue(stream, status_);
     }
 
@@ -71,7 +77,7 @@ namespace blitzortung {
       size.add(longitude_);
       size.add(latitude_);
       size.add(altitude_);
-      size.add(numberOfSatellites_);
+      size.add(satelliteCount_);
       size.add(status_);
 
       return size.get();
@@ -89,7 +95,7 @@ namespace blitzortung {
 
       os << gpsInfo.getLongitude() << " " << gpsInfo.getLatitude();
       os << " " << gpsInfo.getAltitude();
-      os << " " << (int) gpsInfo.getNumberOfSatellites();
+      os << " " << (int) gpsInfo.getSatelliteCount();
 
       return os;
     }
