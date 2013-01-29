@@ -158,6 +158,7 @@ namespace blitzortung {
     }
 
     //! explicit instatiation of functions to be linked afterwards
+    template class WaveformOf<signed char, 0  , 1>;
     template class WaveformOf<signed char, 1  , 1>;
     template class WaveformOf<signed char, 64 , 1>;
     template class WaveformOf<signed char, 128, 1>;
@@ -166,7 +167,7 @@ namespace blitzortung {
     template class WaveformOf<signed char, 64 , 2>;
     template class WaveformOf<signed char, 128, 2>;
     template class WaveformOf<signed char, 256, 2>;
-    template class WaveformOf<signed short, 1, 2>;
+    template class WaveformOf<signed short,  1, 2>;
 
   }
 }
