@@ -1,3 +1,10 @@
+/*
+ * libblitzortung - a shared library for Blitzortung.org tracker and data handling
+ *
+ * Copyright (c) 2013 Andreas Würl
+ * Licensed under the MIT License
+ */
+
 #include "data/GpsInfo.h"
 #include "data/Gps.h"
 #include "util/Stream.h"

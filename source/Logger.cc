@@ -1,3 +1,10 @@
+/*
+ * libblitzortung - a shared library for Blitzortung.org tracker and data handling
+ *
+ * Copyright (c) 2013 Andreas Würl
+ * Licensed under the MIT License
+ */
+
 #include <log4cpp/OstreamAppender.hh>
 #include <log4cpp/FileAppender.hh>
 #include <log4cpp/PatternLayout.hh>

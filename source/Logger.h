@@ -1,5 +1,12 @@
-#ifndef BLITZORTUNG_LOGGER_H_
-#define BLITZORTUNG_LOGGER_H_
+#ifndef LIBBLITZORTUNG_LOGGER_H_
+#define LIBBLITZORTUNG_LOGGER_H_
+
+/*
+ * libblitzortung - a shared library for Blitzortung.org tracker and data handling
+ *
+ * Copyright (c) 2013 Andreas Würl
+ * Licensed under the MIT License
+ */
 
 #include <log4cpp/Category.hh>
 

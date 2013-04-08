@@ -1,5 +1,12 @@
-#ifndef BLITZORTUNG_DATA_EVENT_H_
-#define BLITZORTUNG_DATA_EVENT_H_
+#ifndef LIBBLITZORTUNG_DATA_EVENT_H_
+#define LIBBLITZORTUNG_DATA_EVENT_H_
+
+/*
+ * libblitzortung - a shared library for Blitzortung.org tracker and data handling
+ *
+ * Copyright (c) 2013 Andreas Würl
+ * Licensed under the MIT License
+ */
 
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <json/json.h>

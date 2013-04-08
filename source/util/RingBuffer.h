@@ -1,6 +1,13 @@
 #ifndef LIBBLITZORTUNG_UTIL_RINGBUFFER_H_
 #define LIBBLITZORTUNG_UTIL_RINGBUFFER_H_
 
+/*
+ * libblitzortung - a shared library for Blitzortung.org tracker and data handling
+ *
+ * Copyright (c) 2013 Andreas Würl
+ * Licensed under the MIT License
+ */
+
 #include <boost/shared_array.hpp>
 
 #include "Logger.h"

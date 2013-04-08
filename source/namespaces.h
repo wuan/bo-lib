@@ -1,5 +1,12 @@
-#ifndef BLITZORTUNG_NAMESPACES_H_
-#define BLITZORTUNG_NAMESPACES_H_
+#ifndef LIBBLITZORTUNG_NAMESPACES_H_
+#define LIBBLITZORTUNG_NAMESPACES_H_
+
+/*
+ * libblitzortung - a shared library for Blitzortung.org tracker and data handling
+ *
+ * Copyright (c) 2013 Andreas Würl
+ * Licensed under the MIT License
+ */
 
 #include "config.h"
 

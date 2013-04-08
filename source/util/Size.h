@@ -1,6 +1,12 @@
-#ifndef BLITZORTUNG_UTIL_SIZE_H_
-#define BLITZORTUNG_UTIL_SIZE_H_
+#ifndef LIBBLITZORTUNG_UTIL_SIZE_H_
+#define LIBBLITZORTUNG_UTIL_SIZE_H_
 
+/*
+ * libblitzortung - a shared library for Blitzortung.org tracker and data handling
+ *
+ * Copyright (c) 2013 Andreas Würl
+ * Licensed under the MIT License
+ */
 
 namespace blitzortung {
   namespace util {

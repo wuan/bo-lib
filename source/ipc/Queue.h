@@ -1,5 +1,12 @@
-#ifndef BLITZORTUNG_NETWORK_QUEUE_H_
-#define BLITZORTUNG_NETWORK_QUEUE_H_
+#ifndef LIBBLITZORTUNG_IPC_QUEUE_H_
+#define LIBBLITZORTUNG_IPC_QUEUE_H_
+
+/*
+ * libblitzortung - a shared library for Blitzortung.org tracker and data handling
+ *
+ * Copyright (c) 2013 Andreas Würl
+ * Licensed under the MIT License
+ */
 
 #include <queue>
 

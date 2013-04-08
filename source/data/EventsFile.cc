@@ -1,3 +1,10 @@
+/*
+ * libblitzortung - a shared library for Blitzortung.org tracker and data handling
+ *
+ * Copyright (c) 2013 Andreas Würl
+ * Licensed under the MIT License
+ */
+
 #include "data/Format.h"
 #include "data/EventsFile.h"
 #include "data/Event.h"
