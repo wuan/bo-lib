@@ -1,3 +1,7 @@
+# PyCharm IDE files
+.idea
+*.iml
+
 # Compiled Object files
 *.slo
 *.lo
@@ -10,3 +14,12 @@
 *.lai
 *.la
 *.a
+
+Makefile
+Makefile.in
+/config.*
+/*.pc
+/aclocal.m4
+/configure
+.deps
+.libs
