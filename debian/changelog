@@ -1,6 +1,6 @@
 libblitzortung (1.3.0) unstable; urgency=low
 
-  * forked from blitzortung-tracker 1.0.6
+  * forked/extracted code from blitzortung-tracker 1.0.6
   * use more efficient templates
 
  -- Andreas Wuerl <blitzortung@tryb.de>  Sun, 04 Nov 2012 22:38:16 +0100
