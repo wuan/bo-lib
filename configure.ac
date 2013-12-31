@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT([libblitzortung],[1.3])
+AC_INIT([libblitzortung],[1.3.0])
 
 dnl Every other copy of the package version number gets its value from here
 AM_INIT_AUTOMAKE([foreign])
